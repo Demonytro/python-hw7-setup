@@ -5,7 +5,7 @@ with open('README.md','r', encoding="utf-8") as readme:
 
 setup(
     name = 'clean_folder',
-    version = '1.0.1',
+    version = '1.0.2',
     description = 'Sort folder code',
     url = 'https://github.com/Demonytro/python-hw7-sort.git',
     author = 'Dmytro Oseledko',
