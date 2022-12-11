@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: clean-folder
-Version: 1.0.2
+Version: 1.0.3
 Summary: Sort folder code
 Home-page: https://github.com/Demonytro/python-hw7-sort.git
 Author: Dmytro Oseledko
@@ -8,7 +8,6 @@ Author-email: d.oseledko@outlook.com
 License: MIT license
 Classifier: Python version :: Python :: 3.10
 Classifier: Operating System :: Windows
-Requires-Python: >=3.10
 License-File: LICENSE
 
 long_description

@@ -1,7 +1,5 @@
 LICENSE
 README.md
-pyproject.toml
-setup.cfg
 setup.py
 clean_folder/__init__.py
 clean_folder/clean.py

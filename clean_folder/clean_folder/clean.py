@@ -23,7 +23,7 @@ name_folders = {
 count_dub = 0
 
 def normalize(string):
-    """ This function works just fine """
+    """ This function translite name files """
     capital_letters = {
         u'А': u'A',
         u'Б': u'B',
@@ -115,22 +115,21 @@ def normalize(string):
     return translit_string
 
 
-def sort_folder(path_folder):
-
-    list_path_subfolder = list(path_folder.iterdir())
+def sort_folder(list_path_first, path_start_folder):
+    """ This function filter folders and for recursion """
+    list_path_subfolder = list(list_path_first.iterdir())
     if not list_path_subfolder:
         return 
     else:
         for file_folder in list_path_subfolder:
             if file_folder.is_dir():
-                sort_folder(file_folder)
+                sort_folder(file_folder, path_start_folder)
             else:
-                sort_files(file_folder)
+                sort_files(file_folder, path_start_folder)
     return
-
-
-def sort_files(path_file):
-
+    
+def sort_files(path_file, path_start_folder):
+    """ This function sort files """
     name, ext = path_file.stem, path_file.suffix
     global count_dub
     count_dub += 1
@@ -151,10 +150,6 @@ def sort_files(path_file):
         new_path = Path(os.path.join(path_start_folder, 'archives'))
         with ZipFile(path_file, 'r') as zObject:
             zObject.extractall(new_path)
-        # shutil.unpack_archive(path_file, extract_dir)
-        # new_path = os.path.join(path_start_folder, 'archives')
-        # os.remove (path_file)
-
     else:
         new_path = os.path.join(path_start_folder, 'unknown')
 
@@ -171,29 +166,46 @@ def sort_files(path_file):
         path_file.rename(new_path_name)
 
 
+def make_dir(path_start_folder):
+    """ This function create folders for sort """
+    for new_folder in name_folders:
+        path_new_dir = os.path.join(path_start_folder, new_folder)
+        if not os.path.exists(path_new_dir):
+            os.makedirs(path_new_dir)
+        else:
+            print('don\'t make up folder', path_new_dir)
+
+
+def main():
+    """ This function begin work """
+    global path_start_folder
+    try:
+        path_start_folder = Path(sys.argv[1])
+        print(path_start_folder)
+        make_dir(path_start_folder)
+        list_path_first = list(path_start_folder.iterdir())
+        for any_path in list_path_first:
+            if any_path.is_dir():
+                sort_folder(any_path, path_start_folder)
+                if any_path.name in name_folders:
+                    continue
+                else:
+                    shutil.rmtree(any_path)
+            else:
+                sort_files(any_path, path_start_folder)
+        
+        list_sort_done = list(path_start_folder.iterdir())
+        print('Sort done!\n', list_sort_done)
+    except IndexError:
+        print('No param !!! Try again...(ex.:>>> clean-folder D:\GitHub\desktop)')
+    
+
 # ---------------------------------------------------------------------------
 
-path_start_folder = Path(sys.argv[-1])
+path_start_folder = None
 
-list_path_first = list(path_start_folder.iterdir())
+if __name__ == '__main__':
 
-for new_folder in name_folders:
-    path_new_dir = os.path.join(path_start_folder, new_folder)
-    if not os.path.exists(path_new_dir):
-        os.makedirs(path_new_dir)
-    else:
-        print('don\'t make up folder', path_new_dir)
-
-for any_path in list_path_first:
+    main()
+        
     
-    if any_path.is_dir():
-        sort_folder(any_path)
-        if any_path.name in name_folders:
-            continue
-        else:
-            shutil.rmtree(any_path)
-    else:
-        sort_files(any_path)
-
-list_sort_done = list(path_start_folder.iterdir())
-print('Sort done!\n', list_sort_done)

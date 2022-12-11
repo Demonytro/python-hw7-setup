@@ -5,7 +5,7 @@ with open('README.md','r', encoding="utf-8") as readme:
 
 setup(
     name = 'clean_folder',
-    version = '1.0.2',
+    version = '1.0.3',
     description = 'Sort folder code',
     url = 'https://github.com/Demonytro/python-hw7-sort.git',
     author = 'Dmytro Oseledko',
@@ -17,6 +17,6 @@ setup(
     ],
     license = 'MIT license',
     packages = find_namespace_packages(),
-    install_requires = ['markdown', "requests", "flask"],
+    install_requires = ["requests"],
     entry_points = {'console_scripts': ['clean-folder = clean_folder.clean:main']}
 )
