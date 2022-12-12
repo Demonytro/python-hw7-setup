@@ -6,8 +6,10 @@ Home-page: https://github.com/Demonytro/python-hw7-sort.git
 Author: Dmytro Oseledko
 Author-email: d.oseledko@outlook.com
 License: MIT license
+Platform: UNKNOWN
 Classifier: Python version :: Python :: 3.10
 Classifier: Operating System :: Windows
 License-File: LICENSE
 
 long_description
+
